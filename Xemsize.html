@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xác định Size Áo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Căn giữa tất cả các phần tử */
+        }
+        input {
+            padding: 10px;
+            margin: 5px 0;
+            width: 200px; /* Đặt chiều rộng cố định cho các ô nhập */
+            text-align: center; /* Căn giữa nội dung bên trong ô nhập */
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 220px; /* Đặt chiều rộng cho nút */
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            width: 300px; /* Đặt chiều rộng cố định cho khung kết quả */
+            text-align: center; /* Căn giữa nội dung trong khung kết quả */
+        }
+        .error {
+            color: red;
+        }
+        .note {
+            font-size: smaller;
+            font-style: italic;
+            margin-top: 10px;
+            text-align: center; /* Căn giữa nội dung trong ghi chú */
+        }
+
+        /* Thu phóng tiêu đề theo kích thước màn hình */
+        h1 {
+            font-size: 2.5em; /* Kích thước cơ bản */
+            text-align: center; /* Căn giữa tiêu đề */
+        }
+
+        /* Quy tắc cho màn hình nhỏ hơn 600px (điện thoại di động) */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em; /* Kích thước cho điện thoại */
+            }
+        }
+
+        /* Quy tắc cho màn hình từ 601px đến 900px (máy tính bảng) */
+        @media (min-width: 601px) and (max-width: 900px) {
+            h1 {
+                font-size: 2.2em; /* Kích thước cho máy tính bảng */
+            }
+        }
+
+        /* Quy tắc cho màn hình lớn hơn 901px (máy tính để bàn) */
+        @media (min-width: 901px) {
+            h1 {
+                font-size: 2.5em; /* Kích thước cho máy tính để bàn */
+            }
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid rgba(0, 0, 0, 0.2); /* Đường kẻ ngang mờ */
+            margin: 10px 0; /* Khoảng cách giữa đường kẻ và nội dung */
+        }
+    </style>
+</head>
+<body>
+    <h1>Xác định Size Áo Trẻ Em</h1>
+    <label for="height">Chiều cao (cm):</label>
+    <input type="number" id="height" placeholder="Nhập chiều cao">
+    <br>
+    <label for="weight">Cân nặng (kg):</label>
+    <input type="number" id="weight" placeholder="Nhập cân nặng">
+    <br>
+    <label for="age">Tuổi (tuổi):</label>
+    <input type="number" id="age" placeholder="Nhập tuổi">
+    <br>
+    <button onclick="calculateSize()">Xác định Size</button>
+    <div class="result" id="result"></div>
+    <hr> <!-- Đường kẻ ngang -->
+    <div class="note" id="note"></div>
+
+    <script>
+        function calculateSize() {
+            const height = parseInt(document.getElementById('height').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            const age = parseInt(document.getElementById('age').value);
+            let size = "";
+            let errorMessage = "";
+            let suggestions = [];
+
+            // Kiểm tra nếu không có dữ liệu
+            if (isNaN(height) && isNaN(weight) && isNaN(age)) {
+                errorMessage = "Vui lòng nhập chiều cao, cân nặng hoặc tuổi!";
+            } else {
+                // Kiểm tra chiều cao trước
+                if (!isNaN(height)) {
+                    if (height >= 73 && height < 80) {
+                        size = "Size 80";
+                    } else if (height >= 80 && height < 90) {
+                        size = "Size 90";
+                    } else if (height >= 90 && height < 100) {
+                        size = "Size 100";
+                    } else if (height >= 100 && height < 110) {
+                        size = "Size 110";
+                    } else if (height >= 110 && height < 120) {
+                        size = "Size 120";
+                    } else if (height >= 120 && height < 130) {
+                        size = "Size 130";
+                    } else if (height >= 130 && height < 140) {
+                        size = "Size 140";
+                    } else if (height >= 140 && height <= 150) {
+                        size = "Size 150";
+                    }
+                }
+
+                // Nếu chưa có size từ chiều cao, kiểm tra cân nặng
+                if (!size && !isNaN(weight)) {
+                    if (weight >= 8 && weight < 10) {
+                        size = "Size 80";
+                    } else if (weight >= 10 && weight < 12) {
+                        size = "Size 90";
+                    } else if (weight >= 12 && weight < 14) {
+                        size = "Size 100";
+                    } else if (weight >= 14 && weight < 18) {
+                        size = "Size 110";
+                    } else if (weight >= 18 && weight < 20) {
+                        size = "Size 120";
+                    } else if (weight >= 20 && weight < 22) {
+                        size = "Size 130";
+                    } else if (weight >= 22 && weight < 27) {
+                        size = "Size 140";
+                    } else if (weight >= 27 && weight <= 35) {
+                        size = "Size 150";
+                    }
+                }
+
+                // Nếu vẫn chưa có size từ chiều cao và cân nặng, kiểm tra tuổi
+                if (!size && !isNaN(age)) {
+                    if (age >= 1 && age < 3) { // 1-2 tuổi
+                        size = "Size 80";
+                    } else if (age >= 2 && age < 4) { // 2-3 tuổi
+                        size = "Size 90";
+                    } else if (age >= 3 && age < 5) { // 3-4 tuổi
+                        size = "Size 100";
+                    } else if (age >= 4 && age < 6) { // 4-5 tuổi
+                        size = "Size 110";
+                    } else if (age >= 6 && age < 8) { // 6-7 tuổi
+                        size = "Size 120";
+                    } else if (age >= 7 && age < 10) { // 7-9 tuổi
+                        size = "Size 130";
+                    } else if (age >= 9 && age < 11) { // 9-11 tuổi
+                        size = "Size 140";
+                    } else if (age >= 11 && age <= 12) { // 11-12 tuổi
+                        size = "Size 150";
+                    }
+                }
+            }
+
+            // Kiểm tra nếu không có size
+            if (!size) {
+                if (height < 73 || height > 150 || weight < 8 || weight > 35 || age < 1 || age > 12) {
+                    resultDiv.innerText = "Rất tiếc. Không có size phù hợp cho bé 😢";
+                    return;
+                } else {
+                    resultDiv.innerText = "Không tìm thấy kết quả phù hợp";
+                }
+            }
+
+            // Đề xuất cho trường dữ liệu chưa được điền
+            if (size) {
+                if (isNaN(height)) {
+                    suggestions.push("Đề xuất chiều cao: " + getSuggestedHeight(size));
+                }
+                if (isNaN(weight)) {
+                    suggestions.push("Đề xuất cân nặng: " + getSuggestedWeight(size));
+                }
+                if (isNaN(age)) {
+                    suggestions.push("Đề xuất tuổi: " + getSuggestedAge(size));
+                }
+            }
+
+            // Hiển thị kết quả
+            const resultDiv = document.getElementById('result');
+            const noteDiv = document.getElementById('note');
+            resultDiv.innerText = errorMessage || "Size áo: " + size + 
+                (suggestions.length > 0 ? " (" + suggestions.join(", ") + ")" : "");
+            noteDiv.innerHTML = "Size được tính theo tiêu chuẩn WHO mới nhất.";
+        }
+
+        function getSuggestedHeight(size) {
+            const heightSuggestions = {
+                "Size 80": "73-80 cm",
+                "Size 90": "80-90 cm",
+                "Size 100": "90-100 cm",
+                "Size 110": "100-110 cm",
+                "Size 120": "110-120 cm",
+                "Size 130": "120-130 cm",
+                "Size 140": "130-140 cm",
+                "Size 150": "140-150 cm"
+            };
+            return heightSuggestions[size] || "Không có gợi ý";
+        }
+
+        function getSuggestedWeight(size) {
+            const weightSuggestions = {
+                "Size 80": "8-10 kg",
+                "Size 90": "10-12 kg",
+                "Size 100": "12-14 kg",
+                "Size 110": "14-18 kg",
+                "Size 120": "18-20 kg",
+                "Size 130": "20-22 kg",
+                "Size 140": "22-27 kg",
+                "Size 150": "27-35 kg"
+            };
+            return weightSuggestions[size] || "Không có gợi ý";
+        }
+
+        function getSuggestedAge(size) {
+            const ageSuggestions = {
+                "Size 80": "1-2 tuổi",
+                "Size 90": "2-3 tuổi",
+                "Size 100": "3-4 tuổi",
+                "Size 110": "4-5 tuổi",
+                "Size 120": "6-7 tuổi",
+                "Size 130": "7-9 tuổi",
+                "Size 140": "9-11 tuổi",
+                "Size 150": "11-12 tuổi"
+            };
+            return ageSuggestions[size] || "Không có gợi ý";
+        }
+    </script>
+</body>
+</html>
